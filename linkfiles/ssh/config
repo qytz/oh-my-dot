@@ -1,0 +1,11 @@
+#配置，克隆终端连接同一个服务器不需要再次输入密码
+#ControlMaster auto
+#ControlPath /tmp/ssh_mux_%h_%p_%r
+
+#使用长连接，在4小时内登陆同一个服务器不需要输入密码
+ControlPersist 4h
+
+#去掉连接等待时间
+GSSAPIAuthentication no
+
+StrictHostKeyChecking no

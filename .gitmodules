@@ -1,0 +1,6 @@
+[submodule "linkdirs/oh-my-zsh"]
+	path = linkdirs/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "linkdirs/vim"]
+	path = linkdirs/vim
+	url = https://github.com/lennyhbt/vim-configs.git
