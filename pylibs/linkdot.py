@@ -3,22 +3,22 @@
 import os, sys
 
 from termcolor import colored, cprint
+from datetime import datetime
 
 LINKREC='.created-links'
 
-def write_linkrec(src, dst):
+def write_linkrec(linkname, target):
     linkrec = LINKREC
     if os.path.exists(linkrec):
         with open(linkrec, 'r') as f:
             all_link = f.readlines()
     else:
         all_link = []
-    all_link.append('{0} -> {1}'.format(src, dst))
+    all_link.append('{0} -> {1}\n'.format(linkname, target))
     all_link = set(all_link)
-    print(all_link)
 
-    #with open(linkrec, 'w') as f:
-    #   f.writelines(all_link)
+    with open(linkrec, 'w') as f:
+       f.writelines(all_link)
 
 def do_actions(actions, fake_operate=True):
     def rm(file):
@@ -27,23 +27,53 @@ def do_actions(actions, fake_operate=True):
         else:
             os.system('rm -rf {0}'.format(file))
 
-    def link(src, dst):
+    def link(linkname, target):
+        parent_dir = os.path.dirname(os.path.realpath(linkname))
         if fake_operate:
-            print('link ', dst, src)
-        else:
-            parent_dir = os.path.dirname(os.path.realpath(src))
-            os.system('mkdir -p {0}'.format(parent_dir))
-            os.system('ln -s {0} {1}'.format(dst, src))
-            write_linkrec(src, dst)
+            if os.path.realpath(linkname) == target:
+                return False
 
-    def linkdir(src, dst):
-        if fake_operate:
-            print('linkdir ', dst, src)
+            if os.path.lexists(linkname):
+                postfix = str(datetime.timestamp(datetime.now()))
+                print('mv {0} {1}'.format(linkname, linkname + '.' + postfix))
+
+            print('mkdir -p {0}'.format(parent_dir))
+            print('ln -s {0} {1}'.format(target, linkname))
         else:
-            parent_dir = os.path.dirname(os.path.realpath(src))
+            if os.path.realpath(linkname) == target:
+                return False
+
+            if os.path.lexists(linkname):
+                postfix = str(datetime.timestamp(datetime.now()))
+                os.system('mv {0} {1}'.format(linkname, linkname + '.' + postfix))
+
             os.system('mkdir -p {0}'.format(parent_dir))
-            os.system('ln -s {0} {1}'.format(dst, src))
-            write_linkrec(src, dst)
+            os.system('ln -s {0} {1}'.format(target, linkname))
+            write_linkrec(linkname, target)
+
+    def linkdir(linkname, target):
+        parent_dir = os.path.dirname(os.path.realpath(linkname))
+        if fake_operate:
+            if os.path.realpath(linkname) == target:
+                return False
+
+            if os.path.lexists(linkname):
+                postfix = str(datetime.timestamp(datetime.now()))
+                print('mv {0} {1}'.format(linkname, linkname + '.' + postfix))
+
+            print('mkdir -p {0}'.format(parent_dir))
+            print('ln -s {0} {1}'.format(target, linkname))
+        else:
+            if os.path.realpath(linkname) == target:
+                return False
+
+            if os.path.lexists(linkname):
+                postfix = str(datetime.timestamp(datetime.now()))
+                os.system('mv {0} {1}'.format(linkname, linkname + '.' + postfix))
+
+            os.system('mkdir -p {0}'.format(parent_dir))
+            os.system('ln -s {0} {1}'.format(target, linkname))
+            write_linkrec(linkname, target)
 
     local_mappings = locals()
     for action in actions:
@@ -56,12 +86,12 @@ def do_actions(actions, fake_operate=True):
 
 def remove_broken_symlinks_stack(created_symlinks):
     results = []
-    for src, dst in created_symlinks.items():
-        if os.path.lexists(src) \
-                and os.path.islink(src) \
-                and os.path.realpath(src) == dst \
+    for linkname, dst in created_symlinks.items():
+        if os.path.lexists(linkname) \
+                and os.path.islink(linkname) \
+                and os.path.realpath(linkname) == dst \
                 and not os.path.lexists(dst):
-            results.append(('rm', src))
+            results.append(('rm', linkname))
     return results
 
 
@@ -73,32 +103,34 @@ def make_symlink_stack(origdir, dstdir, top_level=True):
         origdir = origdir[:-1]
 
     if top_level:
-        for dirpath, dirnames, filenames in os.walk(origdir):
+        for dirpath, dirnames, targets in os.walk(origdir):
             for dirname in dirnames:
-                new_name = dirname
+                linkname = dirname
                 if not dirname.startswith('.'):
-                    new_name = '.' + new_name
+                    linkname = '.' + linkname
                 dirname = os.path.join(dirpath, dirname)
-                new_name = os.path.join(dstdir, new_name)
-                results.append(('linkdir', new_name, dirname))
-            for filename in filenames:
-                new_name = filename
-                if not filename.startswith('.'):
-                    new_name = '.' + new_name
-                filename = os.path.join(dirpath, filename)
-                new_name = os.path.join(dstdir, new_name)
-                results.append(('link', new_name, filename))
+                linkname = os.path.join(dstdir, linkname)
+                results.append(('linkdir', linkname, dirname))
+            for target in targets:
+                linkname = target
+                if not target.startswith('.'):
+                    linkname = '.' + linkname
+                target = os.path.join(dirpath, target)
+                linkname = os.path.join(dstdir, linkname)
+                results.append(('link', linkname, target))
             break
     else:
-        for dirpath, dirnames, filenames in os.walk(origdir):
-            for filename in filenames:
-                new_name = filename
-                if not filename.startswith('.'):
-                    new_name = '.' + new_name
-                filename = os.path.join(dirpath, filename)
-                new_name = os.path.join(dirpath[len(origdir)+1:], new_name)
-                new_name = os.path.join(dstdir, new_name)
-                results.append(('link', new_name, filename))
+        for dirpath, dirnames, targets in os.walk(origdir):
+            for target in targets:
+                linkname = target
+                target = os.path.join(dirpath, target)
+                linkdir_name = dirpath[len(origdir)+1:]
+                if not linkdir_name.startswith('.'):
+                    linkdir_name = '.' + linkdir_name
+                linkname = os.path.join(linkdir_name, linkname)
+                linkname = os.path.join(dstdir, linkname)
+
+                results.append(('link', linkname, target))
 
 
     return results

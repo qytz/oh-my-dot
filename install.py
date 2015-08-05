@@ -7,7 +7,7 @@ from pylibs.linkdot import remove_bad_symlink, make_symlink_stack, do_actions, L
 HOME_PATH = os.environ['HOME']
 BASE_PATH = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-def make_all_links():
+def make_all_links(fake_operate):
     linkrec = os.path.join(BASE_PATH, LINKREC)
     remove_bad_symlink(linkrec)
 
@@ -16,7 +16,7 @@ def make_all_links():
 
     actions = make_symlink_stack(linkdirs, HOME_PATH)
     actions += make_symlink_stack(linkfiles, HOME_PATH, top_level=False)
-    do_actions(actions, fake_operate=False)
+    do_actions(actions, fake_operate)
 
 
 def do_post_install():
@@ -33,5 +33,7 @@ def do_post_install():
 
 
 if __name__ == '__main__':
-    make_all_links()
-    #do_post_install()
+    fake_option = False
+    make_all_links(fake_option)
+    if not fake_option:
+        do_post_install()
