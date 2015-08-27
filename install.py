@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys, os
+from datetime import datetime
 from optparse import OptionParser
 from pylibs.linkdot import remove_bad_symlink, make_symlink_stack, do_actions, LINKREC
 
@@ -30,7 +31,6 @@ def do_post_install(target_path):
     os.system("mkdir {0}/.vim/.undofiles".format(target_path))
     os.system("git clone https://github.com/gmarik/vundle.git {0}/.vim/bundle/vundle".format(target_path))
 
-
     link_target= "{target_path}/.vimrc".format(target_path=target_path)
     linkname = "{target_path}/.vim/vimrc".format(target_path=target_path)
     if os.path.lexists(link_target) and os.path.realpath(link_target) != linkname:
@@ -38,6 +38,7 @@ def do_post_install(target_path):
         os.system('mv {0} {1}'.format(link_target, link_target + '.' + postfix))
     os.system("ln -s {target_path}/.vim/vimrc {target_path}/.vimrc".format(target_path=target_path))
     os.system("vim +PluginInstall +qall")
+    print('plugin install')
     #os.system("~/.vim/bundle/YouCompleteMe/install.py --clang-completer --omnisharp-completer --gocode-completer")
     os.system("~/.vim/bundle/YouCompleteMe/install.py --clang-completer")
 
@@ -47,6 +48,8 @@ if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option("-f", "--fake", dest="fake",
             action="store_true", default=False, help="only print the actions")
+    parser.add_option("-p", "--post", dest="post",
+            action="store_true", default=False, help="only do post install")
     parser.add_option("-t", "--target", dest="target",
             default=HOME_PATH, help="install target dir")
     (options, args) = parser.parse_args()
@@ -56,7 +59,15 @@ if __name__ == '__main__':
         fake_option = True
     target_path = options.target
 
-    # do real options
-    make_all_links(target_path, fake_option)
-    if not fake_option:
+
+    if options.post:
         do_post_install(target_path)
+    else:
+        if not fake_option:
+            os.chdir(BASE_PATH)
+            os.system("git submodule init")
+            os.system("git submodule update")
+        # do real options
+        make_all_links(target_path, fake_option)
+        if not fake_option:
+            do_post_install(target_path)
