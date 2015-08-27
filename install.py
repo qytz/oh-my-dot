@@ -59,14 +59,12 @@ if __name__ == '__main__':
         fake_option = True
     target_path = options.target
 
-
     if options.post:
         do_post_install(target_path)
     else:
-        if not fake_option:
-            os.chdir(BASE_PATH)
-            os.system("git submodule init")
-            os.system("git submodule update")
+        os.chdir(BASE_PATH)
+        os.system("git submodule init")
+        os.system("git submodule update")
         # do real options
         make_all_links(target_path, fake_option)
         if not fake_option:
