@@ -8,5 +8,5 @@ BASE_PATH = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 os.chdir(BASE_PATH)
 os.system('git pull')
-os.system('git submodule foreach --recursive git submodule update')
-os.system('git submodule foreach --recursive git pull')
+os.system('git submodule foreach --recursive git submodule update --remote')
+#os.system('git submodule foreach --recursive git pull')
