@@ -2,7 +2,7 @@
 
 import os, sys
 
-from termcolor import colored, cprint
+from . termcolor import colored, cprint
 from datetime import datetime
 
 LINKREC='.created-links'

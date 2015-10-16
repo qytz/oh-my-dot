@@ -1,8 +1,8 @@
 [user]
-	name = huafeng_huang_dev
-	email = huanghuafeng@syberos.com
+	name = huanghuafeng
+	email = hhhhhf@foxmail.com
 [commit]
-	template = /home/lenny/.gconf/git_template
+#	template = /home/lenny/.gconf/git_template
 [core]
 	editor = vim
 	quotepath = false
