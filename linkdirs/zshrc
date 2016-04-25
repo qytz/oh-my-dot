@@ -56,9 +56,7 @@ plugins=(git gitignore z colored-man-pages sudo tmux command-not-found zsh-navig
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export MANPATH="/usr/local/man:$MANPATH"
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-export PATH=$PATH:$HOME/anaconda2/bin
+export PATH="/workstation/programs/anaconda3/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 

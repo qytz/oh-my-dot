@@ -1,0 +1,24 @@
+patch:
+  "menu/page_size": 6   # 每頁候選數
+  "punctuator/full_shape/%":
+      - "%"
+      - "‰"
+      - "‱"
+      - "％"
+      - "°"
+      - "℃"
+  "punctuator/half_shape/%":
+      - "%"
+      - "‰"
+      - "‱"
+      - "％"
+      - "°"
+      - "℃"
+  "punctuator/half_shape/y":
+      - "✓"
+      - "✔"
+  "punctuator/half_shape/n":
+      - "✗"
+      - "✘"
+      - "✖"
+      - "✕"
