@@ -29,8 +29,8 @@ def do_post_install(target_path):
     os.system("mkdir -p {0}/.vim/.swap".format(target_path))
     os.system("mkdir -p {0}/.vim/.undofiles".format(target_path))
     #os.system("git clone https://github.com/gmarik/vundle.git {0}/.vim/bundle/vundle".format(target_path))
-    #os.system("git clone https://github.com/Shougo/neobundle.vim {0}/.vim/bundle/neobundle.vim".format(target_path))
-    os.system('curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    os.system("git clone https://github.com/Shougo/neobundle.vim {0}/.vim/bundle/neobundle.vim".format(target_path))
+    #os.system('curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
 
     link_target= "{target_path}/.vimrc".format(target_path=target_path)
     linkname = "{target_path}/.vim/vimrc".format(target_path=target_path)
@@ -39,8 +39,8 @@ def do_post_install(target_path):
         os.system('mv {0} {1}'.format(link_target, link_target + '.' + postfix))
     os.system("ln -s {target_path}/.vim/vimrc {target_path}/.vimrc".format(target_path=target_path))
     #os.system("vim +PluginInstall +qall")
-    #os.system("vim +NeoBundleInstall +qall")
-    os.system("vim +PlugInstall +qall")
+    os.system("vim +NeoBundleInstall +qall")
+    #os.system("vim +PlugInstall +qall")
     #os.system("~/.vim/bundle/YouCompleteMe/install.py --clang-completer --omnisharp-completer --gocode-completer")
     #os.system("~/.vim/bundle/YouCompleteMe/install.py --clang-completer")
 
