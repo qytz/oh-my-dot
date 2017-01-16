@@ -1,5 +1,5 @@
 [user]
-	name = huanghuafeng
+	name = qytz
 	email = hhhhhf@foxmail.com
 [commit]
 #	template = /home/lenny/.gconf/git_template
@@ -17,6 +17,7 @@
 	branch = auto
 	interactive = auto
 [http]
+#	sslverify = false
 #	proxy = socks5://127.0.0.1:8119
 #	proxy = http://127.0.0.1:8103
 [alias]
