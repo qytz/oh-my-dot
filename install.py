@@ -39,6 +39,7 @@ def do_post_install(target_path):
         postfix = str(datetime.timestamp(datetime.now()))
         os.system('mv {0} {1}'.format(link_target, link_target + '.' + postfix))
     os.system("ln -s {target_path}/.vim/vimrc {target_path}/.vimrc".format(target_path=target_path))
+    os.system("ln -s {target_path}/.vim/gvimrc {target_path}/.gvimrc".format(target_path=target_path))
     os.system("vim +PluginInstall +qall")
     #os.system("vim +NeoBundleInstall +qall")
 
