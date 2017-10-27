@@ -4,3 +4,6 @@
 [submodule "linkdirs/vim"]
 	path = linkdirs/vim
 	url = git@github.com:qytz/vim-configs.git
+[submodule "linkdirs/tmux-resurrect"]
+	path = linkdirs/tmux-resurrect
+	url = git@github.com:tmux-plugins/tmux-resurrect.git
