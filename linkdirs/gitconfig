@@ -21,8 +21,13 @@
 #	proxy = socks5://127.0.0.1:8119
 #	proxy = http://127.0.0.1:8103
 [alias]
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lg = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit --date=relative
 	co = checkout
 	ci = commit
-	st = status
+	st = status -sb
 	br = branch
+	cm = commit
+	ac = !git add -A && git commit
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
