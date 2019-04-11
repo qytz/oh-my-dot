@@ -7,3 +7,6 @@
 [submodule "linkdirs/tmux-resurrect"]
 	path = linkdirs/tmux-resurrect
 	url = git@github.com:tmux-plugins/tmux-resurrect.git
+[submodule "linkdirs/nvm"]
+	path = linkdirs/nvm
+	url = git@github.com:creationix/nvm.git
