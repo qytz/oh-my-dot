@@ -58,7 +58,7 @@ plugins=(git gitignore z colored-man-pages sudo \
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export MANPATH="/usr/local/man:$MANPATH"
-export PATH="$PATH:/workstation/programs/anaconda3/bin:$HOME/.yarn/bin"
+export PATH="$PATH:$HOME/.yarn/bin"
 
 source $ZSH/oh-my-zsh.sh
 
