@@ -113,3 +113,5 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
+
+export PATH="$HOME/.cargo/bin:$PATH"

@@ -52,7 +52,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git gitignore z colored-man-pages sudo \
-    tmux command-not-found zsh-navigation-tools perms ubuntu gitfast)
+    tmux command-not-found zsh-navigation-tools perms ubuntu gitfast python)
 
 # User configuration
 
@@ -93,8 +93,12 @@ fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+nvm use --lts --delete-prefix
 
-# pyenv
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# go proxy
+# 启用 Go Modules 功能
+export GO111MODULE=on
+# 配置 GOPROXY 环境变量
+export GOPROXY=https://goproxy.io
+
+export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
