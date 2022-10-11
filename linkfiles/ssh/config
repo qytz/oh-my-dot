@@ -9,3 +9,7 @@ ControlPersist 4h
 GSSAPIAuthentication no
 
 StrictHostKeyChecking no
+
+Host *
+    GSSAPIAuthentication yes
+    GSSAPIDelegateCredentials no

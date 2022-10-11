@@ -6,6 +6,7 @@
 [core]
 	editor = vim
 	quotepath = false
+	sshCommand = ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 [merge]
 	tool = meld
 [push]
@@ -31,3 +32,7 @@
 	tags = tag -l
 	branches = branch -a
 	remotes = remote -v
+[pull]
+	rebase = false
+[credential]
+	helper = store

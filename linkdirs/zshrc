@@ -58,7 +58,10 @@ plugins=(git gitignore z colored-man-pages sudo \
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export MANPATH="/usr/local/man:$MANPATH"
-export PATH="$PATH:$HOME/.yarn/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.yarn/bin"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/.dev/flutter/bin"
+export GOPROXY=https://proxy.golang.com.cn,direct
 
 source $ZSH/oh-my-zsh.sh
 
@@ -102,3 +105,26 @@ export GO111MODULE=on
 export GOPROXY=https://goproxy.io
 
 export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+#### # >>> conda initialize >>>
+#### # !! Contents within this block are managed by 'conda init' !!
+#### __conda_setup="$('/home/lenny/.miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#### if [ $? -eq 0 ]; then
+####     eval "$__conda_setup"
+#### else
+####     if [ -f "/home/lenny/.miniconda3/etc/profile.d/conda.sh" ]; then
+####         . "/home/lenny/.miniconda3/etc/profile.d/conda.sh"
+####     else
+####         export PATH="/home/lenny/.miniconda3/bin:$PATH"
+####     fi
+#### fi
+#### unset __conda_setup
+#### # <<< conda initialize <<<
+####
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source ~/.pyenvs/ms/bin/activate  # commented out by conda initialize
+
+# nvm@taobao
+export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
+# flutter@tuna
+export FLUTTER_STORAGE_BASE_URL="https://mirrors.tuna.tsinghua.edu.cn/flutter"
+export PUB_HOSTED_URL="https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
