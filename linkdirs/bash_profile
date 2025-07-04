@@ -35,18 +35,6 @@ PROMPT_COMMAND="$PROMPT_COMMAND;history -a; history -n"
 export PATH=/bin:/sbin:/usr/sbin:/usr/bin:/usr/local/bin:~/bin
 export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib
 
-#export JAVA_HOME=/home/tscadmin/java/current
-#export JRE_HOME=${JAVA_HOME}/jre
-
-export CLASSPATH=$HADOOP_HOME/lib:$JAVA_HOME/lib:$JRE_HOME/lib
-
-export PATH=$PATH:$HADOOP_HOME/bin:$JAVA_HOME/bin:$JRE_HOME/bin:$HIVE_HOME
-export PYTHONPATH=$PYTHONPATH:/home/ken/project/qvod/
-export PYTHONPATH=$PYTHONPATH:/Users/ken/workspace/wklken/1/
-export PYTHONPATH=$PYTHONPATH:/Users/ken/workspace/wklken/1/mdpress
-
-export GOPATH=/Users/ken/workspace/goweb
-
 #设置了Ls的目录颜色
 export HOSTSHORT=`hostname`
 export OS=`uname`;
@@ -114,5 +102,6 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
-export PATH="$HOME/.cargo/bin:$PATH"
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
+#
+# eval "$(/opt/homebrew/bin/brew shellenv)"
